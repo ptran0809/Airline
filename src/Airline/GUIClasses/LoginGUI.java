@@ -3,6 +3,7 @@ package Airline.GUIClasses;
 import javax.swing.*;
 
 import Airline.Airplane.Airplane;
+import Airline.Airplane.Airplanes;
 import Airline.Passenger.GoldMember;
 import Airline.Passenger.MemberPassenger;
 import Airline.Passenger.NotMember;
@@ -37,7 +38,7 @@ public class LoginGUI extends JFrame {
 	private final String ID_FILE_NAME = "FIles\\Passengers\\current_highest_id.txt";
 	private final String PLANE = "Images\\airbus-a350-580x366.jpg";
 	
-	public LoginGUI(ArrayList<Airplane> planes) {
+	public LoginGUI(Airplanes planes) {
 		
 		panel = new JPanel();
 		password = new JLabel("Password: ");
@@ -86,14 +87,14 @@ public class LoginGUI extends JFrame {
 	 */
 	private class LoginListener implements ActionListener {
 
-		private ArrayList<Airplane> planes;
+		private Airplanes planes;
 		
 		/**
 		 * Constructor for LoginListeners that takes an arraylist of airplanes and a passenger
 		 * @param planes
 		 * @param passenger
 		 */
-		public LoginListener(ArrayList<Airplane> planes) {
+		public LoginListener(Airplanes planes) {
 			this.planes = planes;
 		}
 		

@@ -8,17 +8,21 @@
 package Airline.Airplane;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Route implements Serializable {
 
 	//Fields
-	private Date flightDate;
 	private double price;
 	private String departure;
 	private String destination;
-	private String departTime;
-	private String landingTime;
+	private LocalDateTime departTime;
+	private LocalDateTime landingTime;
+	private static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("E MMM dd YYYY"); 
+	private static DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
 	
 	//Default generated serialVersionUID so we can save Routes
 	private static final long serialVersionUID = 5864046047982946697L;
@@ -31,15 +35,16 @@ public class Route implements Serializable {
 	  * @param landingTime The approximate landing time of the Route
 	  * @param price The base price of the Route
 	  */
-	public Route(Date flightDate, double price, String departure, String destination, String departTime, String landingTime) {
-		this.flightDate = flightDate;
+	public Route(double price, String departure, String destination, LocalDateTime departTime, LocalDateTime landingTime) {
 		this.price = price;
 		this.departure = departure;
 		this.destination = destination;
 		this.departTime = departTime;
 		this.landingTime = landingTime;
 	}
-	
+	public LocalDate getFlightDate(){
+		return this.getDepartTime().toLocalDate();
+	}
 	/**
 	 * An accessor method for the private String field departure
 	 * @return The departure location of the Route
@@ -60,7 +65,7 @@ public class Route implements Serializable {
 	 * An accessor method for the private String field departTime
 	 * @return The departure time of the Route
 	 */
-	public String getDepartTime() {
+	public LocalDateTime getDepartTime() {
 		return this.departTime;
 	}
 	
@@ -68,7 +73,7 @@ public class Route implements Serializable {
 	 * An accessor method for the private String field landingTime
 	 * @return The approximate landing time of the Route
 	 */
-	public String getLandingTime() {
+	public LocalDateTime getLandingTime() {
 		return this.landingTime;
 	}
 	
@@ -79,22 +84,22 @@ public class Route implements Serializable {
 	public double getPrice() {
 		return this.price;
 	}
-
-	public Date getFlightDate() {
-		return flightDate;
-	}
-
-	public void setFlightDate(Date flightDate) {
-		this.flightDate = flightDate;
-	}
 	
 	public String getFormattedInformation() {
 		return "<html>"
 				+ "From: " + departure 
 				+ "<p>"+ "To: " + destination 
-				+ "<p>"+ "Leaving: " + departTime 
-				+ "<p>"+ "Arriving: " + landingTime 
-				+ "<p>"+ "On: " + flightDate.toString().substring(0, 10)
+				+ "<p>"+ "Leaving: " + this.getDepartTime().format(TIME_FORMAT) 
+				+ "<p>"+ "Arriving: " + this.getLandingTime().format(TIME_FORMAT) 
+				+ "<p>"+ "On: " + this.getDepartTime().format(DATE_FORMAT)
 				+ "</html>";
+	}
+	public String toString(){
+		return  "From: " + departure 
+				+ "\n"+ "To: " + destination 
+				+ "<\n>"+ "Leaving: " + this.getDepartTime().format(TIME_FORMAT) 
+				+ "<\n>"+ "Arriving: " + this.getLandingTime().format(TIME_FORMAT) 
+				+ "<\n>"+ "On: " + this.getDepartTime().format(DATE_FORMAT);
+				
 	}
 }

@@ -8,6 +8,7 @@
 package Airline.GUIClasses;
 
 import java.awt.GridLayout;
+import java.time.LocalDateTime;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -23,10 +24,10 @@ public class RouteInfoPanel extends JPanel {
 	 * @param locationInfo The String to be set as the text of locationInfo
 	 * @param timeInfo The String to be set as the text of timeInfo
 	 */
-	public RouteInfoPanel(String locationInfo, String timeInfo) {
+	public RouteInfoPanel(String locationInfo, LocalDateTime timeInfo) {
 		//Initiate the fields
 		this.locationInfo = new JLabel(locationInfo);
-		this.timeInfo = new JLabel(timeInfo);
+		this.timeInfo = new JLabel(timeInfo.toString());
 		
 		//Add them to the Panel
 		this.setLayout(new GridLayout(2,1));

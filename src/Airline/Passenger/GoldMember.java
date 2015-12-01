@@ -10,10 +10,10 @@
 
 package Airline.Passenger;
 
-import java.util.Date;
-
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
+//import org.joda.time.Days;
+//import org.joda.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import Airline.Airplane.Airplane;
 import Airline.CustomExceptions.CannotUpgradeMembershipException;
@@ -37,9 +37,7 @@ public class GoldMember implements MemberPassenger {
 	 * @return If the passenger can register
 	 */
 	public boolean canRegister(Airplane plane) {
-		//Using the external library Joda Time to easily get the distance between date objects in days
-		Days difference = Days.daysBetween(LocalDate.fromDateFields(plane.getRoute().getFlightDate()), LocalDate.fromDateFields(new Date()));
-		int differenceNum = difference.getDays();
+		int differenceNum = (int) ChronoUnit.DAYS.between(LocalDate.now(),plane.getRoute().getFlightDate());
 		
 		//If the dates are closer than the allowed registration day
 		if(differenceNum <= MemberPassenger.GOLD_REGISTRATION_DAYS) {

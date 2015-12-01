@@ -140,7 +140,11 @@ public abstract class Airplane implements Serializable {
 	public static Airplane deserialize(int id) {
 		return null;
 	}
-
+	public String toString(){
+		return "Flight ID: " + this.getId()
+			+"\n"+"Flight Number: " + this.getFlightNo()
+			+"\n"+this.getRoute().toString();
+	}
 	//Define abstract methods for the subclasses to implement
 	public abstract void serialize();
 	public abstract void createSeats();

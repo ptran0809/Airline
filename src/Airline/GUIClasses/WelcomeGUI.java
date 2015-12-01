@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Airline.Driver;
 import Airline.Airplane.Airplane;
+import Airline.Airplane.Airplanes;
 import Airline.Airplane.TwelveSeatPlane;
 import Airline.Passenger.Passenger;
 
@@ -17,7 +18,7 @@ public class WelcomeGUI extends JFrame {
 	private JPanel centerPanel;
 	private BorderLayout borderLayout;
 	private Dimension minimumSize;
-	private ArrayList<Airplane> planes;
+	private Airplanes planes;
 	private Passenger passenger;
 	private JPanel southPanel;
 	private JPanel northPanel;
@@ -26,12 +27,12 @@ public class WelcomeGUI extends JFrame {
 	private final String BIG_PLANE = "Images\\big_plane_small.jpg";
 	private final String SMALL_PLANE = "Images\\small_plane_small.jpg";
 	
-	public WelcomeGUI(ArrayList<Airplane> planes, Passenger passenger) {
+	public WelcomeGUI(Airplanes planes, Passenger passenger) {
 		//NEED TO AUTOMATICALLY GENERATE A BUTTON AND INFORMATION FOR EACH PLANE
 		
-		this.planes = planes;
+		this.planes = planes.deserialize();
 		this.passenger = passenger;
-		
+		System.out.println(this.planes);
 		centerPanel = new JPanel();
 		southPanel = new JPanel();
 		northPanel = new JPanel();
@@ -47,7 +48,7 @@ public class WelcomeGUI extends JFrame {
 		centerPanel.setLayout(new GridLayout(4,4));
 		southPanel.setLayout(new FlowLayout());
 		
-		for (Airplane currentPlane : planes ) {
+		for (Airplane currentPlane : planes.getPlaneAvailNow() ) {
 			if (currentPlane instanceof TwelveSeatPlane) {
 				centerPanel.add(new AirplanePanel(currentPlane, BIG_PLANE, passenger));
 			}
@@ -71,6 +72,7 @@ public class WelcomeGUI extends JFrame {
 	
 	private void close() {
 		LoginGUI login = new LoginGUI(planes);
+		this.planes.serialize();
 		this.dispose();
 	}
 	
